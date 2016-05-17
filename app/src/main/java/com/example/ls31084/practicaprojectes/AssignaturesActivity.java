@@ -1,5 +1,6 @@
 package com.example.ls31084.practicaprojectes;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,8 +26,6 @@ public class AssignaturesActivity extends AppCompatActivity {
         list = new ArrayList<Assignatura>();
         listView = (ListView) findViewById(R.id.list);
         assignaturaAdapter = new AssignaturaAdapter(this, list);
-
-
 
 
 

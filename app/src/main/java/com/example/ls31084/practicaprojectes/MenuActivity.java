@@ -31,6 +31,18 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
                 System.exit(0);
                 return true;
+            case R.id.action_alumn:
+                Intent i = new Intent(this, NalumneActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.action_assig:
+                Intent i2 = new Intent(this, Nassignatura1Activity.class);
+                startActivity(i2);
+                return true;
+            case R.id.action_exam:
+                Intent i3 = new Intent(this, NalumneActivity.class);
+                startActivity(i3);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

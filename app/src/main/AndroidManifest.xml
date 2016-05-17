@@ -22,6 +22,11 @@
         <activity android:name=".ExamensActivity"/>
         <activity android:name=".AlumnesActivity"/>
         <activity android:name=".VassignaturaActivity"/>
+        <activity android:name=".Nassignatura1Activity"/>
+        <activity android:name=".NalumneActivity"/>
+        <activity android:name=".Nassignatura2Activity"/>
+        <activity android:name=".Nassignatura3Activity"/>
+        <activity android:name=".NexamActivity"/>
     </application>
 
 </manifest>

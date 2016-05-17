@@ -1,10 +1,11 @@
 package com.example.ls31084.practicaprojectes;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Alba on 05/05/2016.
@@ -24,10 +26,14 @@ public class AssignaturaAdapter extends ArrayAdapter {
     public static final int layout=R.layout.activity_assignatures;
     private ArrayList<Assignatura> elements;
     private Context context;
+    private View row;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor sharedPrefEditor;
+    private StringBuilder saveList;
 
     public AssignaturaAdapter(Context context, List<Assignatura> objects) {
         super(context, layout, objects);
-        this.elements = new ArrayList<Assignatura>();
+        this.elements = new ArrayList<>();
         this.context = context;
         ompleLlista();
     }
@@ -35,11 +41,19 @@ public class AssignaturaAdapter extends ArrayAdapter {
     public void ompleLlista() {
         this.elements.clear();
 
-        this.elements.add(new Assignatura("Estadística", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Transmisió", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Estadística i anàlisi matemàtica", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Senyals i sistemes de transmisió", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Android", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Xarxes", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Paed", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Xarxes d'Àrea Local", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Programación avançada", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Programació d'objectes", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Bases de Dades", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Ordinadors I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Electrónica I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Business", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies. Si supera les 2 linies, afegir punts suspensius.", R.mipmap.ic_launcher));
+
+        sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
+        sharedPrefEditor = sharedPref.edit();
     }
 
     public Assignatura getItem (int index) {
@@ -51,7 +65,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View row = convertView;
+        row = convertView;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(row==null){
@@ -61,8 +75,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, VassignaturaActivity.class);
-                    getContext().startActivity(i);
+                    canviActivitat(row, position);
                 }
             });
         }
@@ -76,8 +89,6 @@ public class AssignaturaAdapter extends ArrayAdapter {
         nom.setText(a.getNom());
         desc.setText(a.getDescripcio());
         img.setImageResource(a.getImage());
-
-        if (desc.length() > 70)  desc.setText(a.getDescripcio().substring(0,70) + "...");
 
         Button deleteButton = (Button) row.findViewById(R.id.listbutton);
         deleteButton.setTag(position);
@@ -113,5 +124,15 @@ public class AssignaturaAdapter extends ArrayAdapter {
                                         }
         );
         return row;
+    }
+
+    public void canviActivitat(View row, int position){
+        Assignatura a = getItem(position);
+        row.setTag(a);
+
+        Intent i = new Intent(context, VassignaturaActivity.class);
+        i.removeExtra("nomdesc");
+        i.putExtra("nomdesc", a.getNom()+"/"+a.getDescripcio());
+        getContext().startActivity(i);
     }
 }

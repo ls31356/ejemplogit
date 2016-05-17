@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_assig"
+        android:title="@string/nouassig"
+        />
+
+    <item android:id="@+id/action_alumn"
+        android:title="@string/nouassig"
+        />
+
+    <item android:id="@+id/action_exam"
+        android:title="@string/nouexam"
+        />
+
+    <item android:id="@+id/action_close"
+        android:title="@string/sortir"
+        />
+
+</menu>

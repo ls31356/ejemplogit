@@ -35,9 +35,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Descripció breu de la assignatura tallant les lletres al superar les 2 linies"
+                android:text="Descripció breu de la assignatura tallant les lletres al superar les 2 linies ffsadf sfdasaf asdfasdf asdfasdf afsdf pene"
                 android:id="@+id/desc"
-                android:paddingRight="30dp"/>
+                android:paddingRight="30dp"
+                android:maxLines="2"
+                android:lines="2"
+                android:ellipsize="end"/>
 
         </LinearLayout>
     </LinearLayout>

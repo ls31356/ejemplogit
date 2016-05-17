@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">PracticaProjectes</string>
+    <string name="entrar">Entrar</string>
+    <string name="password">Contraseña</string>
+    <string name="check">Recuerdame la próxima vez</string>
+    <string name="incorrecte">Usuario o contraseña incorrecto</string>
+    <string name="assignatures">Gestionar\nassignaturas</string>
+    <string name="examens">Examenes</string>
+    <string name="alumnat">Gestionar\nalumnado</string>
+    <string name="sortir">Salir</string>
+    <string name="verificacio">Autentificación</string>
+    <string name="introduccio"></string>
+    <string name="dialogasstitle">Aviso!</string>
+    <string name="dialogasstext">¿Estás seguro que quieres borrar esta asignatura?</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="borrar">Borrar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="infobasica">Información básica</string>
+    <string name="temario">Temario</string>
+    <string name="noualumn">Crear alumno</string>
+    <string name="nouassig">Crear asignatura</string>
+    <string name="nouexam">Nuevo examen</string>
+</resources>
