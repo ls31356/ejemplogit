@@ -30,6 +30,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor sharedPrefEditor;
     private StringBuilder saveList;
+    private String getList;
 
     public AssignaturaAdapter(Context context, List<Assignatura> objects) {
         super(context, layout, objects);
@@ -41,7 +42,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
     public void ompleLlista() {
         this.elements.clear();
 
-        this.elements.add(new Assignatura("Estadística i anàlisi matemàtica", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
+        /*this.elements.add(new Assignatura("Estadística i anàlisi matemàtica", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Senyals i sistemes de transmisió", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Android", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Xarxes d'Àrea Local", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
@@ -50,10 +51,24 @@ public class AssignaturaAdapter extends ArrayAdapter {
         this.elements.add(new Assignatura("Bases de Dades", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Ordinadors I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Electrónica I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Business", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies. Si supera les 2 linies, afegir punts suspensius.", R.mipmap.ic_launcher));
+        this.elements.add(new Assignatura("Business", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies. Si supera les 2 linies, afegir punts suspensius.", R.mipmap.ic_launcher));*/
 
         sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
         sharedPrefEditor = sharedPref.edit();
+
+        getList = sharedPref.getString("myList", " ");
+
+
+
+        /*
+        saveList = new StringBuilder(" ");
+
+        for (Assignatura x : elements){
+            saveList.append(x.getNom()+"-"+x.getDescripcio()+"*");
+        }
+
+        sharedPrefEditor.putString("myList", saveList.toString());
+        sharedPrefEditor.commit();*/
     }
 
     public Assignatura getItem (int index) {
