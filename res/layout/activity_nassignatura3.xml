@@ -9,5 +9,58 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.ls31084.practicaprojectes.SplashActivity"
     android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/introtemari"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:id="@+id/temari"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="2">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nomtema"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/insertar"
+            android:layout_gravity="right"
+            android:id="@+id/insertar"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/anterior"
+        android:drawableLeft="@drawable/anterior"
+        android:id="@+id/backpas2"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/continuar"
+        android:drawableRight="@drawable/seguent"
+        android:id="@+id/crea_assig"
+        android:layout_alignParentRight="true"
+        />
+    </RelativeLayout>
     
 </LinearLayout>

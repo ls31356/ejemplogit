@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
- * Created by Alba on 05/05/2016.
+ * Created by Aleix on 05/05/2016.
  */
 public class AssignaturaAdapter extends ArrayAdapter {
     public static final int layout=R.layout.activity_assignatures;
@@ -44,8 +40,8 @@ public class AssignaturaAdapter extends ArrayAdapter {
 
     public void ompleLlista() {
         this.elements.clear();
-
-        /*this.elements.add(new Assignatura("Estadística i anàlisi matemàtica", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
+/*
+        this.elements.add(new Assignatura("Estadística i anàlisi matemàtica", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Senyals i sistemes de transmisió", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Android", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Xarxes d'Àrea Local", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
@@ -55,7 +51,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
         this.elements.add(new Assignatura("Ordinadors I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Electrónica I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Business", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies. Si supera les 2 linies, afegir punts suspensius.", R.mipmap.ic_launcher));
-        */
+*/
         sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
         sharedPrefEditor = sharedPref.edit();
 

@@ -10,22 +10,39 @@
     tools:context="com.example.ls31084.practicaprojectes.SplashActivity"
     android:orientation="vertical">
 
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="@string/selectalumnes"
+        android:layout_weight="0.1"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/incriureAlum"
+        android:layout_weight="8">
+    </ListView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/anterior"/>
+            android:text="@string/anterior"
+            android:drawableLeft="@drawable/anterior"
+            android:id="@+id/backpas1"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/continuar"
+            android:drawableRight="@drawable/seguent"
+            android:id="@+id/pas3"
+            android:layout_alignParentRight="true"
             />
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

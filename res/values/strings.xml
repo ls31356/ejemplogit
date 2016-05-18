@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PracticaProjectes</string>
+    <string name="app_name">Digital Campus</string>
     <string name="entrar">Entrar</string>
     <string name="password">Contraseña</string>
     <string name="check">Recuerdame la próxima vez</string>
@@ -25,5 +25,9 @@
     <string name="desc">Descripción</string>
     <string name="continuar">Continuar</string>
     <string name="anterior">Anterior</string>
+    <string name="selectalumnes">Selecciona los alumnos inscritos</string>
+    <string name="introtemari">Introduce el temario de la asignatura:</string>
+    <string name="nomtema">Nombre tema ...</string>
+    <string name="insertar">Insertar</string>
 
 </resources>
