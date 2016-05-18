@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,6 +32,8 @@ public class AssignaturaAdapter extends ArrayAdapter {
     private SharedPreferences.Editor sharedPrefEditor;
     private StringBuilder saveList;
     private String getList;
+    private String[] arrayStrings;
+    private String[] nomdesc;
 
     public AssignaturaAdapter(Context context, List<Assignatura> objects) {
         super(context, layout, objects);
@@ -51,24 +54,18 @@ public class AssignaturaAdapter extends ArrayAdapter {
         this.elements.add(new Assignatura("Bases de Dades", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Ordinadors I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
         this.elements.add(new Assignatura("Electrónica I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Business", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies. Si supera les 2 linies, afegir punts suspensius.", R.mipmap.ic_launcher));*/
-
+        this.elements.add(new Assignatura("Business", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies. Si supera les 2 linies, afegir punts suspensius.", R.mipmap.ic_launcher));
+        */
         sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
         sharedPrefEditor = sharedPref.edit();
 
-        getList = sharedPref.getString("myList", " ");
+        getList = sharedPref.getString("myList", "");
 
-
-
-        /*
-        saveList = new StringBuilder(" ");
-
-        for (Assignatura x : elements){
-            saveList.append(x.getNom()+"-"+x.getDescripcio()+"*");
+        arrayStrings = getList.split("/");
+        for (int i = 0; i < arrayStrings.length; i++){
+            nomdesc = arrayStrings[i].split("-");
+            this.elements.add(new Assignatura(nomdesc[0], nomdesc[1], R.mipmap.ic_launcher));
         }
-
-        sharedPrefEditor.putString("myList", saveList.toString());
-        sharedPrefEditor.commit();*/
     }
 
     public Assignatura getItem (int index) {
@@ -124,6 +121,14 @@ public class AssignaturaAdapter extends ArrayAdapter {
                                                                 // if this button is clicked,
                                                                 elements.remove(index.intValue());
                                                                 notifyDataSetChanged();
+                                                                saveList = new StringBuilder("");
+
+                                                                for (Assignatura x : elements){
+                                                                    saveList.append(x.getNom()+"-"+x.getDescripcio()+"/");
+                                                                }
+
+                                                                sharedPrefEditor.putString("myList", saveList.toString());
+                                                                sharedPrefEditor.commit();
                                                             }
                                                         }) .setNegativeButton(R.string.cancelar
                                                         , new DialogInterface.OnClickListener() {
@@ -143,6 +148,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
 
     public void canviActivitat(View row, int position){
         Assignatura a = getItem(position);
+        Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
         row.setTag(a);
 
         Intent i = new Intent(context, VassignaturaActivity.class);

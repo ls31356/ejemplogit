@@ -21,4 +21,9 @@
     <string name="noualumn">Crear alumno</string>
     <string name="nouassig">Crear asignatura</string>
     <string name="nouexam">Nuevo examen</string>
+    <string name="titulo">Título</string>
+    <string name="desc">Descripción</string>
+    <string name="continuar">Continuar</string>
+    <string name="anterior">Anterior</string>
+
 </resources>
