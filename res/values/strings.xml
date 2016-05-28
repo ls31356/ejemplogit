@@ -4,7 +4,9 @@
     <string name="password">Contraseña</string>
     <string name="check">Recuerdame la próxima vez</string>
     <string name="incorrecte">Usuario o contraseña incorrecto</string>
-    <string name="assignatures">Gestionar\nassignaturas</string>
+    <string name="assignatures">Gestionar\nasignaturas</string>
+    <string name="gestioassig">Gestión asignaturas</string>
+    <string name="gestioalumn">Gestión alumnado</string>
     <string name="examens">Examenes</string>
     <string name="alumnat">Gestionar\nalumnado</string>
     <string name="sortir">Salir</string>
@@ -29,5 +31,7 @@
     <string name="introtemari">Introduce el temario de la asignatura:</string>
     <string name="nomtema">Nombre tema ...</string>
     <string name="insertar">Insertar</string>
-
+    <string name="errorassig">Hay que añadir título y descripción!</string>
+    <string name="errorassig2">El nombre o la descripción contiene un guión! ("-")</string>
+    <string name="alumnesinscrits">Alumnos inscritos</string>
 </resources>

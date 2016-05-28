@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by Alba on 05/05/2016.
  */
-public class Assignatura extends AppCompatActivity{
+public class Assignatura {
     private String nom;
     private String descripcio;
     private int mainImage;

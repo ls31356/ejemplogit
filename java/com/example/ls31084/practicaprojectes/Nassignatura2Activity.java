@@ -1,8 +1,10 @@
 package com.example.ls31084.practicaprojectes;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,6 +12,20 @@ import java.util.List;
 
 public class Nassignatura2Activity extends AppCompatActivity {
     private Button anterior, seguent;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor prefEditor;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.logo_icon);
+        getSupportActionBar().setSubtitle(R.string.nouassig);
+        getSupportActionBar().setSubtitle(getSupportActionBar().getSubtitle().toString() +"  2/3");
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +38,10 @@ public class Nassignatura2Activity extends AppCompatActivity {
         anterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                preferences = getSharedPreferences("nouAssig", MODE_PRIVATE);
+                prefEditor = preferences.edit();
+                prefEditor.clear();
+                prefEditor.commit();
                 finish();
             }
         });

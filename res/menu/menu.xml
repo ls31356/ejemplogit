@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/action_bar_subtitle"
-        android:title="Subtitol"
-        android:actionViewClass="android.widget.TextView"
-        />
-
     <item android:id="@+id/action_assig"
         android:title="@string/nouassig"
         />
 
     <item android:id="@+id/action_alumn"
-        android:title="@string/nouassig"
+        android:title="@string/noualumn"
         />
 
     <item android:id="@+id/action_exam"

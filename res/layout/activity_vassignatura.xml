@@ -37,12 +37,27 @@
         android:layout_height="wrap_content"
         android:text="@string/temario"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"/>
 
-    <ListView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/listtemario">
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="1\n2\n3\n4"
+            android:id="@+id/temarivassig"
+            android:textStyle="italic"
+            android:lineSpacingExtra="5dp" />
+    </ScrollView>
 
-    </ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/alumnesinscrits"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_weight="1.5"/>
 </LinearLayout>

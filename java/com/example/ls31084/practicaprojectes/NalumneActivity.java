@@ -8,7 +8,7 @@ public class NalumneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nassignatura1);
+        setContentView(R.layout.activity_nalumne);
 
     }
 

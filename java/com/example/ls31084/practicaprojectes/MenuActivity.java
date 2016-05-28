@@ -16,6 +16,7 @@ public class MenuActivity extends AppCompatActivity {
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPreferencesEditor;
     private boolean finish = false;
+    private String saveAssig, list;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,6 +95,25 @@ public class MenuActivity extends AppCompatActivity {
                 changeActivity(i, finish);
             }
         });
+
+        if (getIntent().getBooleanExtra("creada", false)){
+            Intent i = new Intent(getApplicationContext(), AssignaturesActivity.class);
+            loginPreferences = getSharedPreferences("nouAssig", MODE_PRIVATE);
+            loginPreferencesEditor = loginPreferences.edit();
+            saveAssig = loginPreferences.getString("nouAssig", "");
+            loginPreferencesEditor.clear();
+            loginPreferencesEditor.commit();
+
+            loginPreferences = getSharedPreferences("AssignaturaList", MODE_PRIVATE);
+            loginPreferencesEditor = loginPreferences.edit();
+
+            list = loginPreferences.getString("myList", "");
+            loginPreferencesEditor.clear();
+            loginPreferencesEditor.putString("myList", list+saveAssig);
+            loginPreferencesEditor.commit();
+
+            startActivity(i);
+        }
     }
 
     public void resetPreferences(){
