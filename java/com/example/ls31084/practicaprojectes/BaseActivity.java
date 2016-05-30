@@ -13,6 +13,7 @@ import android.view.MenuItem;
 public abstract class BaseActivity extends AppCompatActivity {
     int resId;
     String pas;
+    boolean inflate = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,31 +27,46 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.logo_icon);
         getSupportActionBar().setSubtitle(resId);
-        if () {
-            MenuInflater menuInflater = getMenuInflater();
-            menuInflater.inflate(R.menu.add_menu, menu);
+        if (inflate) {
+            if (resId == R.string.vassig){
+                MenuInflater menuInflater = getMenuInflater();
+                menuInflater.inflate(R.menu.delete_menu, menu);
+            }
+            else {
+                MenuInflater menuInflater = getMenuInflater();
+                menuInflater.inflate(R.menu.add_menu, menu);
+            }
         }
-        if (getSupportActionBar().getSubtitle().toString().equals("Crear asignatura")) getSupportActionBar().setSubtitle(getSupportActionBar().getSubtitle().toString() + " " + pas);
+        if (getSupportActionBar().getSubtitle().toString().equals("Crear asignatura"))
+            getSupportActionBar().setSubtitle(getSupportActionBar().getSubtitle().toString() + " " + pas);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
 
-        if (itemId == android.R.id.home) {
-            finish();
-
-        } else if (itemId == R.id.menu_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-
-        } else if (itemId == R.id.menu_search) {
-            onSearchRequested();
-
+        switch (item.getItemId()) {
+            case R.id.afegirass:
+                Intent i;
+                if (resId == R.string.gestioalumn) {
+                    i = new Intent(this, NalumneActivity.class);
+                    startActivity(i);
+                }
+                if (resId == R.string.gestioassig) {
+                    i = new Intent(this, Nassignatura1Activity.class);
+                    startActivity(i);
+                }
+                if (resId == R.string.llistatexamens) {
+                    i = new Intent(this, NexamActivity.class);
+                    startActivity(i);
+                }
+                return true;
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
-
 }
 

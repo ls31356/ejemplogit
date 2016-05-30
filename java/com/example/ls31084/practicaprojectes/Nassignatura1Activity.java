@@ -14,38 +14,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Nassignatura1Activity extends AppCompatActivity {
+public class Nassignatura1Activity extends BaseActivity {
     private EditText nomNouAssig, descNouAssig;
     private Button pas2;
     private SharedPreferences preferences;
     private SharedPreferences.Editor prefEditor;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.logo_icon);
-        getSupportActionBar().setSubtitle(R.string.nouassig);
-        getSupportActionBar().setSubtitle(getSupportActionBar().getSubtitle().toString() +"  1/3");
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                this.finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nassignatura1);
+        resId = R.string.nouassig;
+        pas = new String("1/3");
 
         nomNouAssig = (EditText) findViewById(R.id.nomNouAssig);
         descNouAssig = (EditText) findViewById(R.id.descNouAssig);

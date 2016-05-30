@@ -114,6 +114,10 @@ public class MenuActivity extends AppCompatActivity {
 
             startActivity(i);
         }
+        if (getIntent().getBooleanExtra("borrada", false)) {
+            Intent i = new Intent(this, AssignaturesActivity.class);
+            startActivity(i);
+        }
     }
 
     public void resetPreferences(){

@@ -10,27 +10,16 @@ import android.widget.Button;
 
 import java.util.List;
 
-public class Nassignatura2Activity extends AppCompatActivity {
+public class Nassignatura2Activity extends BaseActivity {
     private Button anterior, seguent;
     private SharedPreferences preferences;
     private SharedPreferences.Editor prefEditor;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.logo_icon);
-        getSupportActionBar().setSubtitle(R.string.nouassig);
-        getSupportActionBar().setSubtitle(getSupportActionBar().getSubtitle().toString() +"  2/3");
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nassignatura2);
+        setContentView(R.layout.activity_nassignatura1);
+        resId = R.string.nouassig;
+        pas = new String("2/3");
 
         anterior = (Button) findViewById(R.id.backpas1);
         seguent = (Button) findViewById(R.id.pas3);

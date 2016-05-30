@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Nassignatura3Activity extends AppCompatActivity {
+public class Nassignatura3Activity extends BaseActivity {
     private Button anterior, seguent, insertar;
     private SharedPreferences stema, snom;
     private SharedPreferences.Editor setema;
@@ -33,31 +33,11 @@ public class Nassignatura3Activity extends AppCompatActivity {
     private List<String> list;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.logo_icon);
-        getSupportActionBar().setSubtitle(R.string.nouassig);
-        getSupportActionBar().setSubtitle(getSupportActionBar().getSubtitle().toString() +"  3/3");
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.home:
-                this.finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nassignatura3);
+        setContentView(R.layout.activity_nassignatura1);
+        resId = R.string.nouassig;
+        pas = new String("3/3");
 
         anterior = (Button) findViewById(R.id.backpas2);
         seguent = (Button) findViewById(R.id.crea_assig);

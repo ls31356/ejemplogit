@@ -45,19 +45,13 @@ public class AssignaturaAdapter extends ArrayAdapter {
         sharedPrefEditor = sharedPref.edit();
 
         getList = sharedPref.getString("myList", "");
-<<<<<<< HEAD
         if (getList.isEmpty()) this.elements.add(new Assignatura("Asignatura de ejemplo", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
 
-=======
-        if(getList.equals("")){
-            this.elements.add(new Assignatura("as ex", "desc breu", R.mipmap.ic_launcher));
-        }else{
->>>>>>> 462738cc464edb5c03cb2d63de7b2dca7eae726b
         arrayStrings = getList.split("/");
-        for (int i = 0; i < arrayStrings.length; i++) {
+        for (int i = 0; i < arrayStrings.length; i++){
             nomdesc = arrayStrings[i].split("-");
             this.elements.add(new Assignatura(nomdesc[0], nomdesc[1], R.mipmap.ic_launcher));
-        }}
+        }
     }
 
     public Assignatura getItem (int index) {
@@ -145,7 +139,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
 
         Intent i = new Intent(context, VassignaturaActivity.class);
         i.removeExtra("nomdesc");
-        i.putExtra("nomdesc", a.getNom()+"/"+a.getDescripcio());
+        i.putExtra("nomdesc", a.getNom()+"-"+a.getDescripcio());
         getContext().startActivity(i);
     }
 }

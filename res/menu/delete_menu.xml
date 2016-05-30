@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/afegirass"
+    <item android:id="@+id/deleteass"
         android:title="@string/nouassig"
-        android:icon="@mipmap/add"
+        android:icon="@mipmap/delete_gran"
         app:showAsAction="always"/>
     </menu>

@@ -6,7 +6,7 @@
     <string name="incorrecte">Usuario o contraseña incorrecto</string>
     <string name="assignatures">Gestionar\nasignaturas</string>
     <string name="gestioassig">Gestión asignaturas</string>
-    <string name="gestioalumn">Gestión alumnado</string>
+    <string name="gestioalumn">Gestión alumnos</string>
     <string name="examens">Examenes</string>
     <string name="alumnat">Gestionar\nalumnado</string>
     <string name="sortir">Salir</string>
@@ -20,7 +20,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="infobasica">Información básica</string>
     <string name="temario">Temario</string>
-    <string name="noualumn">Crear alumno</string>
+    <string name="noualumn">Nuevo alumno</string>
     <string name="nouassig">Crear asignatura</string>
     <string name="nouexam">Nuevo examen</string>
     <string name="titulo">Título</string>
@@ -45,6 +45,7 @@
     <string name="dialogexammessage">¿Desea crear un nuevo examen o volver al menú?</string>
     <string name="crear">Crear</string>
     <string name="volver">Volver</string>
+    <string name="vassig">Ver asignatura</string>
 
 
     <string-array name="aula_array">

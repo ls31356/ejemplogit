@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class NexamActivity extends AppCompatActivity {
+public class NexamActivity extends BaseActivity {
     private Spinner carrera, assignatura, aula;
     private EditText data, hora;
     private Button datebtn, timebtn, guardar;
@@ -38,9 +38,11 @@ public class NexamActivity extends AppCompatActivity {
     private StringBuilder saveExamens;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nexam);
+        resId = R.string.llistatexamens;
+        inflate = true;
 
         carrera = (Spinner) findViewById(R.id.carrera);
         assignatura = (Spinner) findViewById(R.id.assignspin);
