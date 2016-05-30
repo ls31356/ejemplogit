@@ -56,12 +56,14 @@ public class AssignaturaAdapter extends ArrayAdapter {
         sharedPrefEditor = sharedPref.edit();
 
         getList = sharedPref.getString("myList", "");
-
+        if(getList.equals("")){
+            this.elements.add(new Assignatura("as ex", "desc breu", R.mipmap.ic_launcher));
+        }else{
         arrayStrings = getList.split("/");
-        for (int i = 0; i < arrayStrings.length; i++){
+        for (int i = 0; i < arrayStrings.length; i++) {
             nomdesc = arrayStrings[i].split("-");
             this.elements.add(new Assignatura(nomdesc[0], nomdesc[1], R.mipmap.ic_launcher));
-        }
+        }}
     }
 
     public Assignatura getItem (int index) {
