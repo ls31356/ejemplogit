@@ -24,7 +24,7 @@ public class AssignaturesActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.logo_icon);
         getSupportActionBar().setSubtitle(R.string.gestioassig);
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.assignatures, menu);
+        menuInflater.inflate(R.menu.add_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

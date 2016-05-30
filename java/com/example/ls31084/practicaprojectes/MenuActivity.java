@@ -44,7 +44,7 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(i2);
                 return true;
             case R.id.action_exam:
-                Intent i3 = new Intent(this, NalumneActivity.class);
+                Intent i3 = new Intent(this, NexamActivity.class);
                 startActivity(i3);
                 return true;
             default:

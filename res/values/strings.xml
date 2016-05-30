@@ -34,4 +34,31 @@
     <string name="errorassig">Hay que añadir título y descripción!</string>
     <string name="errorassig2">El nombre o la descripción contiene un guión! ("-")</string>
     <string name="alumnesinscrits">Alumnos inscritos</string>
+    <string name="llistatexamens">Listado examenes</string>
+    <string name="fecha">Fecha del examen</string>
+    <string name="hora">Hora del examen</string>
+    <string name="carrera">Carrera</string>
+    <string name="assignatura">Asignatura</string>
+    <string name="aula">Aula</string>
+    <string name="guardar">Guardar</string>
+    <string name="dialogexamtitle">No hay examenes</string>
+    <string name="dialogexammessage">¿Desea crear un nuevo examen o volver al menú?</string>
+    <string name="crear">Crear</string>
+    <string name="volver">Volver</string>
+
+
+    <string-array name="aula_array">
+        <item>Aula 1</item>
+        <item>Aula 2</item>
+        <item>Aula 3</item>
+        <item>Aula 4</item>
+        <item>Aula 5</item>
+    </string-array>
+    <string-array name="carrera_array">
+        <item>Ingenieria informática</item>
+        <item>Ingenieria multimedia</item>
+        <item>Ingenieria electrónica</item>
+        <item>Ingenieria de telecomunicaciones</item>
+        <item>Ingenieria telemática</item>
+    </string-array>
 </resources>

@@ -16,23 +16,27 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Aleix on 05/05/2016.
  */
 public class ExamenAdapter extends ArrayAdapter {
-    public static final int layout=R.layout.activity_assignatures;
-    private ArrayList<Assignatura> elements;
+    public static final int layout=R.layout.activity_examens;
+    private ArrayList<Examen> elements;
     private Context context;
     private View row;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor sharedPrefEditor;
     private StringBuilder saveList;
-    private String getList;
+    private String[] getList;
     private String[] arrayStrings;
     private String[] nomdesc;
+    private String[] examens;
+    private String[] contingut;
+    int k, n;
 
-    public ExamenAdapter(Context context, List<Assignatura> objects) {
+    public ExamenAdapter(Context context, List<Examen> objects) {
         super(context, layout, objects);
         this.elements = new ArrayList<>();
         this.context = context;
@@ -41,31 +45,66 @@ public class ExamenAdapter extends ArrayAdapter {
 
     public void ompleLlista() {
         this.elements.clear();
-/*
-        this.elements.add(new Assignatura("Estadística i anàlisi matemàtica", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Senyals i sistemes de transmisió", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Android", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Xarxes d'Àrea Local", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Programación avançada", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Programació d'objectes", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Bases de Dades", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Ordinadors I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Electrónica I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Business", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies. Si supera les 2 linies, afegir punts suspensius.", R.mipmap.ic_launcher));
-*/
         sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
+        getList = sharedPref.getString("myList", "").split("/");
+        sharedPref = getContext().getSharedPreferences("ExamList", Context.MODE_PRIVATE);
         sharedPrefEditor = sharedPref.edit();
+        nomdesc = new String[getList.length];
 
-        getList = sharedPref.getString("myList", "");
-
-        arrayStrings = getList.split("/");
-        for (int i = 0; i < arrayStrings.length; i++){
-            nomdesc = arrayStrings[i].split("-");
-            this.elements.add(new Assignatura(nomdesc[0], nomdesc[1], R.mipmap.ic_launcher));
+        for (int i = 0; i < getList.length; i++) {
+            arrayStrings = getList[i].split("-");
+            nomdesc[i] = arrayStrings[0];
+        }
+        try {
+            for (String e : nomdesc) {
+                if(!sharedPref.getString(e, "").isEmpty()){
+                    examens = sharedPref.getString(e, "").split("_");
+                    for (int i = 0; i < examens.length; i++) {
+                        contingut = examens[i].split("-");
+                        this.elements.add(new Examen(contingut[0], contingut[1], contingut[2], contingut[3], contingut[4]));
+                    }
+                }
+            }
+            for (int i = 1; i < elements.size(); i++) {
+                for (int j = i; j > 0; j--) {
+                    if (esMesGran(j - 1, j, elements)) {
+                        swap(j - 1, j, elements);
+                    }
+                }
+            }
+            n = elements.size();
+            for (int m = n; m >= 0; m--) {
+                for (int i = 0; i < n - 1; i++) {
+                    k = i + 1;
+                    if (esMesGran(i, k, elements)) {
+                        swap(i, k, elements);
+                    }
+                }
+            }
+        } catch (IndexOutOfBoundsException e){
+            if(elements.size() >= 1) {}
+            else {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( context);
+                alertDialogBuilder.setTitle(R.string.dialogexamtitle);
+                alertDialogBuilder.setIcon(R.mipmap.alert);
+                alertDialogBuilder.setMessage(R.string.dialogexammessage).setCancelable(false).setPositiveButton(R.string.crear,new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Intent i = new Intent(getContext(), NexamActivity.class);
+                        getContext().startActivity(i);
+                    }
+                }) .setNegativeButton(R.string.volver, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
         }
     }
 
-    public Assignatura getItem (int index) {
+
+    public Examen getItem (int index) {
         return this.elements.get(index);
     }
 
@@ -78,79 +117,54 @@ public class ExamenAdapter extends ArrayAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(row==null){
-            row = inflater.inflate(R.layout.assignatura_row, parent, false);
+            row = inflater.inflate(R.layout.examen_row, parent, false);
             row.setClickable(true);
 
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    canviActivitat(row, position);
+                    Examen e = getItem(position);
+                    Intent i = new Intent(getContext(), NexamActivity.class);
+                    i.putExtra("edita", true);
+                    i.putExtra("string", e.getData() + "-" + e.getHora() + "-" + e.getCarrera() + "-" + e.getAssignatura() + "-" + e.getAula());
+                    getContext().startActivity(i);
                 }
             });
         }
-        Assignatura a = getItem(position);
-        row.setTag(a);
+        Examen examen = getItem(position);
+        row.setTag(examen);
 
-        TextView nom = (TextView) row.findViewById(R.id.nom);
-        TextView desc = (TextView) row.findViewById(R.id.desc);
-        ImageView img = (ImageView) row.findViewById(R.id.img);
+        TextView data = (TextView) row.findViewById(R.id.data);
+        TextView hora = (TextView) row.findViewById(R.id.hora);
+        TextView assignatura = (TextView) row.findViewById(R.id.assignatura);
+        TextView aula = (TextView) row.findViewById(R.id.aula);
+        TextView numAlumn = (TextView) row.findViewById(R.id.numalumnes);
 
-        nom.setText(a.getNom());
-        desc.setText(a.getDescripcio());
-        img.setImageResource(a.getImage());
-
-        Button deleteButton = (Button) row.findViewById(R.id.listbutton);
-        deleteButton.setTag(position);
-        deleteButton.setOnClickListener(new Button.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                final Integer index = (Integer) v.getTag();
-                                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( context);
-
-                                                // set title
-                                                alertDialogBuilder.setTitle(R.string.dialogasstitle);
-                                                alertDialogBuilder.setIcon(R.mipmap.alert);
-
-                                                //set dialog message
-                                                alertDialogBuilder.setMessage(R.string.dialogasstext).setCancelable(false)
-                                                        .setPositiveButton(R.string.borrar,new DialogInterface.OnClickListener() {
-                                                            public void onClick(DialogInterface dialog,int id) {
-                                                                // if this button is clicked,
-                                                                elements.remove(index.intValue());
-                                                                notifyDataSetChanged();
-                                                                saveList = new StringBuilder("");
-
-                                                                for (Assignatura x : elements){
-                                                                    saveList.append(x.getNom()+"-"+x.getDescripcio()+"/");
-                                                                }
-
-                                                                sharedPrefEditor.putString("myList", saveList.toString());
-                                                                sharedPrefEditor.commit();
-                                                            }
-                                                        }) .setNegativeButton(R.string.cancelar
-                                                        , new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int id) {
-                                                        // if this button is clicked, do nothing
-                                                        dialog.cancel();
-                                                    }
-                                                });
-                                                AlertDialog alertDialog = alertDialogBuilder.create();
-                                                // show it
-                                                alertDialog.show();
-                                            }
-                                        }
-        );
+        data.setText(examen.getData());
+        hora.setText(examen.getHora());
+        assignatura.setText("Assignatura: " + examen.getAssignatura());
+        aula.setText(examen.getAula());
+        numAlumn.setText("x" + " alumnes");
         return row;
     }
 
-    public void canviActivitat(View row, int position){
-        Assignatura a = getItem(position);
-        Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
-        row.setTag(a);
+    public boolean esMesGran (int i, int k, ArrayList<Examen> elements){
+        String[] array1 = elements.get(i).getData().split("/");
+        String[] array2 = elements.get(k).getData().split("/");
+        String[] array3 = elements.get(i).getHora().split(":");
+        String[] array4 = elements.get(k).getHora().split(":");
+        if(Integer.valueOf(array1[2]) > Integer.valueOf(array2[2])) return true;
+        if(Integer.valueOf(array1[1]) > Integer.valueOf(array2[1])) return true;
+        if(Integer.valueOf(array1[0]) > Integer.valueOf(array2[0])) return true;
+        if(Integer.valueOf(array3[0]) > Integer.valueOf(array4[0])) return true;
+        if(Integer.valueOf(array3[1]) > Integer.valueOf(array4[1])) return true;
+        return  false;
+    }
 
-        Intent i = new Intent(context, VassignaturaActivity.class);
-        i.removeExtra("nomdesc");
-        i.putExtra("nomdesc", a.getNom()+"/"+a.getDescripcio());
-        getContext().startActivity(i);
+    private void swap(int i, int j, ArrayList<Examen> elements) {
+        Examen temp;
+        temp = elements.get(i);
+        elements.set(i, elements.get(j));
+        elements.set(j, temp);
     }
 }

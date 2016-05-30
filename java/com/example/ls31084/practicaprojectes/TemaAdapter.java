@@ -52,7 +52,7 @@ public class TemaAdapter extends ArrayAdapter {
         arrayStrings = getList.split("-");
         if(getList.equals("")) {
             insereixTema("Tema de ejemplo");
-            sharedPrefEditor.clear().commit();
+            sharedPrefEditor.commit();
         } else{
             for (int i = 0; i < arrayStrings.length; i++){
                 insereixTema(arrayStrings[i]);

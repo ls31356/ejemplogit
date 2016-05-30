@@ -40,22 +40,12 @@ public class AssignaturaAdapter extends ArrayAdapter {
 
     public void ompleLlista() {
         this.elements.clear();
-/*
-        this.elements.add(new Assignatura("Estadística i anàlisi matemàtica", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Senyals i sistemes de transmisió", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Android", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Xarxes d'Àrea Local", "Descripció breu de la assignatura tallant les lletres", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Programación avançada", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Programació d'objectes", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Bases de Dades", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Ordinadors I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Electrónica I", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies.", R.mipmap.ic_launcher));
-        this.elements.add(new Assignatura("Business", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies. Si supera les 2 linies, afegir punts suspensius.", R.mipmap.ic_launcher));
-*/
+
         sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
         sharedPrefEditor = sharedPref.edit();
 
         getList = sharedPref.getString("myList", "");
+        if (getList.isEmpty()) this.elements.add(new Assignatura("Asignatura de ejemplo", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
 
         arrayStrings = getList.split("/");
         for (int i = 0; i < arrayStrings.length; i++){

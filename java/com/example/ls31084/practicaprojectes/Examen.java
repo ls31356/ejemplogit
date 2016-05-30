@@ -6,19 +6,19 @@ package com.example.ls31084.practicaprojectes;
 public class Examen {
     private String data;
     private String hora;
-    private String carrera;
     private String assignatura;
     private String aula;
+    private String carrera;
 
     public Examen() {
     }
 
-    public Examen(String data, String hora, String carrera, String assignatura, String aula) {
+    public Examen(String data, String hora, String assignatura, String aula, String carrera) {
         this.data = data;
         this.hora = hora;
-        this.carrera = carrera;
         this.assignatura = assignatura;
         this.aula = aula;
+        this.carrera = carrera;
     }
 
     public String getHora() {
@@ -38,6 +38,6 @@ public class Examen {
     }
 
     public String getData(){
-        return this.data;
+        return data;
     }
 }
