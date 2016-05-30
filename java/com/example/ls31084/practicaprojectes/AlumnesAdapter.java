@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
+import android.util.JsonReader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,54 +15,61 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Aleix on 05/05/2016.
+ * Created by educabezas on 22/05/16.
  */
-public class AssignaturaAdapter extends ArrayAdapter {
-    public static final int layout=R.layout.activity_assignatures;
-    private ArrayList<Assignatura> elements;
+public class AlumnesAdapter extends ArrayAdapter {
+    public static final String PREFS = "AlumneList";
+    public static final int layout=R.layout.alumne_row;
+    private List<Alumne> elements;
     private Context context;
+    private SharedPreferences sharedPrefs;
+    private SharedPreferences.Editor editor;
     private View row;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor sharedPrefEditor;
-    private StringBuilder saveList;
-    private String getList;
-    private String[] arrayStrings;
-    private String[] nomdesc;
 
-    public AssignaturaAdapter(Context context, List<Assignatura> objects) {
-        super(context, layout, objects);
-        this.elements = new ArrayList<>();
-        this.context = context;
+    public AlumnesAdapter(Context context, List<Alumne> array){
+        super(context, layout);
+        this.elements = array;
         ompleLlista();
     }
 
     public void ompleLlista() {
         this.elements.clear();
 
-        sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
-        sharedPrefEditor = sharedPref.edit();
+        sharedPrefs = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+        editor = sharedPrefs.edit();
+        String prefList = sharedPrefs.getString("studentList", "empty");
+        elements.add(new Alumne("alumne prova", 18, "especialitat", new Date(), 'm',  R.mipmap.ic_launcher, null));
+        elements.add(new Alumne("alumne prova2", 19, "especialitat", new Date(), 'm',  R.mipmap.ic_launcher, null));
+        if(!prefList.equals("empty")) {
+            try {
 
-        getList = sharedPref.getString("myList", "");
-<<<<<<< HEAD
-        if (getList.isEmpty()) this.elements.add(new Assignatura("Asignatura de ejemplo", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
+                JSONArray jsonArray = new JSONArray(prefList);
 
-=======
-        if(getList.equals("")){
-            this.elements.add(new Assignatura("as ex", "desc breu", R.mipmap.ic_launcher));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    elements.add((Alumne) jsonArray.get(i));
+                }
+
+            } catch (JSONException e) {
+            }
         }else{
->>>>>>> 462738cc464edb5c03cb2d63de7b2dca7eae726b
-        arrayStrings = getList.split("/");
-        for (int i = 0; i < arrayStrings.length; i++) {
-            nomdesc = arrayStrings[i].split("-");
-            this.elements.add(new Assignatura(nomdesc[0], nomdesc[1], R.mipmap.ic_launcher));
-        }}
+            elements.add(new Alumne("alumne prova", 18, "especialitat", new Date(), 'm',  R.mipmap.ic_launcher, null));
+        }
+
+
     }
 
-    public Assignatura getItem (int index) {
+    public Alumne getItem (int index) {
         return this.elements.get(index);
     }
 
@@ -70,37 +79,40 @@ public class AssignaturaAdapter extends ArrayAdapter {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         row = convertView;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 
         if(row==null){
-            row = inflater.inflate(R.layout.assignatura_row, parent, false);
+            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(R.layout.alumne_row, parent, false);
             row.setClickable(true);
 
-            row.setOnClickListener(new View.OnClickListener() {
+            /row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     canviActivitat(row, position);
                 }
             });
         }
-        Assignatura a = getItem(position);
+        Alumne a = getItem(position);
         row.setTag(a);
 
         TextView nom = (TextView) row.findViewById(R.id.nom);
-        TextView desc = (TextView) row.findViewById(R.id.desc);
+        TextView edat = (TextView) row.findViewById(R.id.edat);
+        TextView esp = (TextView) row.findViewById(R.id.esp);
         ImageView img = (ImageView) row.findViewById(R.id.img);
 
         nom.setText(a.getNom());
-        desc.setText(a.getDescripcio());
-        img.setImageResource(a.getImage());
+        edat.setText(Integer.toString(a.getEdat()));
+        esp.setText(a.getEspecialitat());
+        img.setImageResource(R.mipmap.ic_launcher);
 
-        Button deleteButton = (Button) row.findViewById(R.id.listbutton);
+        Button deleteButton = (Button) row.findViewById(R.id.alistbutton);
         deleteButton.setTag(position);
         deleteButton.setOnClickListener(new Button.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
                                                 final Integer index = (Integer) v.getTag();
-                                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( context);
+                                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( getContext());
 
                                                 // set title
                                                 alertDialogBuilder.setTitle(R.string.dialogasstitle);
@@ -113,14 +125,14 @@ public class AssignaturaAdapter extends ArrayAdapter {
                                                                 // if this button is clicked,
                                                                 elements.remove(index.intValue());
                                                                 notifyDataSetChanged();
-                                                                saveList = new StringBuilder("");
-
-                                                                for (Assignatura x : elements){
-                                                                    saveList.append(x.getNom()+"-"+x.getDescripcio()+"/");
+                                                                JSONArray jsonArray = new JSONArray();
+                                                                for (int i = 0; i < elements.size(); i++){
+                                                                    jsonArray.put(elements.get(i));
                                                                 }
 
-                                                                sharedPrefEditor.putString("myList", saveList.toString());
-                                                                sharedPrefEditor.commit();
+
+                                                                editor.putString("studentList", jsonArray.toString());
+                                                                editor.commit();
                                                             }
                                                         }) .setNegativeButton(R.string.cancelar
                                                         , new DialogInterface.OnClickListener() {
@@ -139,13 +151,13 @@ public class AssignaturaAdapter extends ArrayAdapter {
     }
 
     public void canviActivitat(View row, int position){
-        Assignatura a = getItem(position);
+        Alumne a = getItem(position);
         Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
         row.setTag(a);
 
         Intent i = new Intent(context, VassignaturaActivity.class);
-        i.removeExtra("nomdesc");
-        i.putExtra("nomdesc", a.getNom()+"/"+a.getDescripcio());
+        i.removeExtra("nomal");
+        i.putExtra("nomal", a.getNom() + "/" + a.getDescripcio());
         getContext().startActivity(i);
     }
 }
