@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -34,7 +36,7 @@ public class NexamActivity extends BaseActivity {
     private ArrayList<String> carreraList, aulaList;
     private SharedPreferences sp;
     private SharedPreferences.Editor spe;
-    private String[] s1, s2, s3, temaedit, e1;
+    private String[] s1, s2, s3, temaedit, e1, e2;
     private StringBuilder saveExamens;
 
     @Override
@@ -113,27 +115,31 @@ public class NexamActivity extends BaseActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp = getSharedPreferences("ExamList", MODE_PRIVATE);
-                spe = sp.edit();
-                if (getIntent().getBooleanExtra("edita", false)) {
-                    e1 = sp.getString(temaedit[3], "").split("_");
-                    saveExamens = new StringBuilder();
-                    for(int j = 0; j < e1.length; j++){
-                        if (!e1.equals(getIntent().getStringExtra("string"))) saveExamens.append(e1[j]).append("_");
+                if(isValidDate(data.getText().toString())){
+
+                } else {
+                    sp = getSharedPreferences("ExamList", MODE_PRIVATE);
+                    spe = sp.edit();
+                    if (getIntent().getBooleanExtra("edita", false)) {
+                        e1 = sp.getString(temaedit[3], "").split("_");
+                        saveExamens = new StringBuilder();
+                        for(int j = 0; j < e1.length; j++){
+                            if (!e1.equals(getIntent().getStringExtra("string"))) saveExamens.append(e1[j]).append("_");
+                        }
+                        spe.putString(temaedit[3], saveExamens.toString());
+                        spe.commit();
                     }
-                    spe.putString(temaedit[3], saveExamens.toString());
+                    saveExamens = new StringBuilder();
+                    saveExamens.append(sp.getString(assignatura.getSelectedItem().toString(), ""))
+                            .append(data.getText().toString()).append("-")
+                            .append(hora.getText().toString()).append("-")
+                            .append(assignatura.getSelectedItem().toString()).append("-")
+                            .append(aula.getSelectedItem().toString()).append("-")
+                            .append(carrera.getSelectedItem().toString()).append("_");
+                    spe.putString(assignatura.getSelectedItem().toString(), saveExamens.toString());
                     spe.commit();
+                    finish();
                 }
-                saveExamens = new StringBuilder();
-                saveExamens.append(sp.getString(assignatura.getSelectedItem().toString(), ""))
-                        .append(data.getText().toString()).append("-")
-                        .append(hora.getText().toString()).append("-")
-                        .append(assignatura.getSelectedItem().toString()).append("-")
-                        .append(aula.getSelectedItem().toString()).append("-")
-                        .append(carrera.getSelectedItem().toString()).append("_");
-                spe.putString(assignatura.getSelectedItem().toString(), saveExamens.toString());
-                spe.commit();
-                finish();
             }
         });
     }

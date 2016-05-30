@@ -57,6 +57,11 @@ public class VassignaturaActivity extends AppCompatActivity {
                 }
                 spe.putString("myList", s3);
                 spe.commit();
+                sp = getSharedPreferences("ExamList", MODE_PRIVATE);
+                spe = sp.edit();
+                s2 = infoStr.split("-");
+                spe.putString(s2[0], "");
+                spe.commit();
                 Intent i = new Intent(getApplicationContext(), MenuActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 i.putExtra("borrada", true);

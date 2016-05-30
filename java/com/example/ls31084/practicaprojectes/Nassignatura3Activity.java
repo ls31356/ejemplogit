@@ -35,7 +35,7 @@ public class Nassignatura3Activity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nassignatura1);
+        setContentView(R.layout.activity_nassignatura3);
         resId = R.string.nouassig;
         pas = new String("3/3");
 

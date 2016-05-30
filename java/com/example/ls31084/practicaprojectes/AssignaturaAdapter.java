@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,10 @@ public class AssignaturaAdapter extends ArrayAdapter {
     private ArrayList<Assignatura> elements;
     private Context context;
     private View row;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor sharedPrefEditor;
+    private SharedPreferences sharedPref,sp;
+    private SharedPreferences.Editor sharedPrefEditor,spe;
     private StringBuilder saveList;
-    private String getList;
+    private String getList, nomAssigRemove;
     private String[] arrayStrings;
     private String[] nomdesc;
 
@@ -44,8 +45,8 @@ public class AssignaturaAdapter extends ArrayAdapter {
         sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
         sharedPrefEditor = sharedPref.edit();
 
-        getList = sharedPref.getString("myList", "");
-        if (getList.isEmpty()) this.elements.add(new Assignatura("Asignatura de ejemplo", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
+        getList = sharedPref.getString("myList", "empty");
+        if (getList.equals("empty")) this.elements.add(new Assignatura("Asignatura de ejemplo", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
 
         arrayStrings = getList.split("/");
         for (int i = 0; i < arrayStrings.length; i++){
@@ -105,6 +106,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
                                                         .setPositiveButton(R.string.borrar,new DialogInterface.OnClickListener() {
                                                             public void onClick(DialogInterface dialog,int id) {
                                                                 // if this button is clicked,
+                                                                nomAssigRemove = elements.get(index.intValue()).getNom();
                                                                 elements.remove(index.intValue());
                                                                 notifyDataSetChanged();
                                                                 saveList = new StringBuilder("");
@@ -115,6 +117,10 @@ public class AssignaturaAdapter extends ArrayAdapter {
 
                                                                 sharedPrefEditor.putString("myList", saveList.toString());
                                                                 sharedPrefEditor.commit();
+                                                                sp = getContext().getSharedPreferences("ExamenList", Context.MODE_PRIVATE);
+                                                                spe = sp.edit();
+                                                                spe.putString(nomAssigRemove, "");
+
                                                             }
                                                         }) .setNegativeButton(R.string.cancelar
                                                         , new DialogInterface.OnClickListener() {
