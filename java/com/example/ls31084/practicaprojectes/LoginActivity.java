@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private static final String USER = "administrador@salleurl.edu";
+    private static final String PASS = "123qwe";
+    private static final String USER1 = "a";
+    private static final String PASS1 = "a";
     //Declarem dos variables de SharedPrefereces, una per guardar i l'altre per editar.
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPreferencesEditor;
@@ -62,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                     usuari = email.getText().toString();
                     contra = pass.getText().toString();
 
-                    if (usuari.equals("administrador@salleurl.edu") && contra.equals("123qwe")){
+                    if (usuari.equals(USER1) && contra.equals(PASS1)){
                         if (autologin.isChecked()) {
                             loginPreferencesEditor.putBoolean("saveLogin", true);
                             loginPreferencesEditor.putString("username", usuari);
