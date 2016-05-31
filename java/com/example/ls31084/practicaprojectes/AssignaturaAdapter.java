@@ -51,7 +51,7 @@ public class AssignaturaAdapter extends ArrayAdapter {
         arrayStrings = getList.split("/");
         for (int i = 0; i < arrayStrings.length; i++){
             nomdesc = arrayStrings[i].split("-");
-            this.elements.add(new Assignatura(nomdesc[0], nomdesc[1], R.mipmap.ic_launcher));
+            this.elements.add(new Assignatura(nomdesc[0], nomdesc[0], R.mipmap.ic_launcher));
         }
     }
 

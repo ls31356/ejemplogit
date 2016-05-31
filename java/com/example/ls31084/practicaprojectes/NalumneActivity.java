@@ -1,5 +1,7 @@
 package com.example.ls31084.practicaprojectes;
 
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -9,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -29,9 +33,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NalumneActivity extends BaseActivity {
     private Spinner spinner;
+
     private ArrayList spinnerArray;
     private ArrayAdapter<String> spinnerAdapter;
     private static final int SELECTED_PICTURE = 1;
@@ -47,16 +54,21 @@ public class NalumneActivity extends BaseActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+   private GoogleApiClient client;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nalumne);
         resId = R.string.noualumn;
+        inflate = true;
+        Log.i("info", "log does work");
         nom = (EditText) findViewById(R.id.nomnou);
         fecha = (EditText) findViewById(R.id.fechanou);
         foto = (ImageView) findViewById(R.id.img);
+        addFoto =(Button) findViewById(R.id.addimg);
+        crear = (Button) findViewById(R.id.create);
+        pref = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         editor = pref.edit();
 
         spinner = (Spinner) findViewById(R.id.aspinner);
@@ -75,29 +87,39 @@ public class NalumneActivity extends BaseActivity {
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String json = pref.getString("studentList", "empty");
-                if (json.equals("empty")) {
+                String json = "";
+                if (!pref.contains("studenList") || pref.getString("studentList", "").equals("")) {
 
-                } else {
+                }
+                else{json = pref.getString("studentList", "");}
+
                     try {
                         JSONArray jarray = new JSONArray(json);
                         String string = fecha.getText().toString();
-                        if (isValidDate(string)){
-                            String fechaForm[] = string.split("/");
+                        if (/*isValidDate(string)*/  true){
+                            Log.i("info", "Daaaaaaaaate is valid");
+                           /* String fechaForm[] = string.split("/");
                             int dia = Integer.parseInt(fechaForm[0]);
                             int mes = Integer.parseInt(fechaForm[1]);
                             int any = Integer.parseInt(fechaForm[2]);
 
                             int edat = 2016 - any;
-                            Date date = new Date(dia, mes, any);
+                            Date date = new Date(dia, mes, any);*/
+                            Date date = new Date();
+                            int edat = 20;
                             char sexe = ' ';
                             int selectedid = rgroup.getCheckedRadioButtonId();
                             rbutton = (RadioButton) findViewById(selectedid);
-
+                            Log.i("info", jarray.toString());
                             if(rbutton.getText().toString().equals("Masculino") || rbutton.getText().toString().equals("Femenino")){
+                                String carrera = spinner.getSelectedItem().toString();
+                                Alumne student = new Alumne(nom.getText().toString(), edat, carrera ,  date, rbutton.getText().toString(), yourSelectedImage, new LinkedList<Assignatura>());
+                                JSONObject jobject = new JSONObject();
 
-                                Alumne student = new Alumne(nom.getText().toString(), edat, spinner.getSelectedItem().toString(),  date, rbutton.getText().toString(), yourSelectedImage, null );
                                 jarray.put(student);
+                                Log.i("info", jarray.toString());
+                                String string2 =  nom.getText().toString() + "-" + edat + "-" + carrera + "-" + date.toString() + "-" + rbutton.getText().toString() + "-" + "";
+                                Log.i("info", string2);
                                 editor.putString("studentList", jarray.toString());
                                 editor.commit();
                             }
@@ -109,11 +131,11 @@ public class NalumneActivity extends BaseActivity {
                     }
 
                 }
-            }
+
         });
 
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
+       // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
@@ -138,8 +160,6 @@ public class NalumneActivity extends BaseActivity {
                     //Drawable d = new BitmapDrawable(yourSelectedImage);
                     foto.setImageBitmap(yourSelectedImage);
                     // foto.setBackground(d);
-                } else {
-
                 }
                 break;
             default:

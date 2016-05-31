@@ -48,13 +48,16 @@ public class AlumnesAdapter extends ArrayAdapter {
 
         sharedPrefs = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
-        String prefList = sharedPrefs.getString("studentList", "empty");
-        elements.add(new Alumne("alumne prova", 18, "especialitat", new Date(), "m",  null, null));
-        elements.add(new Alumne("alumne prova2", 19, "especialitat", new Date(), "m", null, null));
-        if(!prefList.equals("empty")) {
+
+
+        if (!sharedPrefs.contains("studenList") || sharedPrefs.getString("studentList", "").equals("")) {
+            elements.add(new Alumne("alumne prova", 18, "especialitat", new Date(), "m",  null, null));
+        }
+        else {
+            String studentList = sharedPrefs.getString("studentList", "empty");
             try {
 
-                JSONArray jsonArray = new JSONArray(prefList);
+                JSONArray jsonArray = new JSONArray(studentList);
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     elements.add((Alumne) jsonArray.get(i));
@@ -62,10 +65,8 @@ public class AlumnesAdapter extends ArrayAdapter {
 
             } catch (JSONException e) {
             }
-        }else{
-            elements.add(new Alumne("alumne prova", 18, "especialitat", new Date(), "m",  null, null));
-        }
 
+        }
 
     }
 
