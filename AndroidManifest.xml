@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ls31084.practicaprojectes">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:screenOrientation="portrait"
         android:allowBackup="true"
@@ -28,11 +28,6 @@
         <activity android:name=".Nassignatura3Activity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".NexamActivity"/>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

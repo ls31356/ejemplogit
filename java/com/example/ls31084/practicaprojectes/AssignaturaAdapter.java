@@ -45,13 +45,17 @@ public class AssignaturaAdapter extends ArrayAdapter {
         sharedPref = getContext().getSharedPreferences("AssignaturaList", Context.MODE_PRIVATE);
         sharedPrefEditor = sharedPref.edit();
 
-        getList = sharedPref.getString("myList", "empty");
-        if (getList.equals("empty")) this.elements.add(new Assignatura("Asignatura de ejemplo", "Descripció breu de la assignatura tallant les lletres al superar les 2 linies", R.mipmap.ic_launcher));
-
-        arrayStrings = getList.split("/");
-        for (int i = 0; i < arrayStrings.length; i++){
-            nomdesc = arrayStrings[i].split("-");
-            this.elements.add(new Assignatura(nomdesc[0], nomdesc[0], R.mipmap.ic_launcher));
+        if (!sharedPref.contains("myList") || sharedPref.getString("myList", "").equals("")) {
+            this.elements.add(new Assignatura("Asignatura de ejemplo", "Descripción de ejemplo", R.mipmap.ic_launcher));
+            sharedPrefEditor.putString("myList", "Asignatura de ejemplo-Descripción de ejemplo");
+        }
+        else {
+            getList = sharedPref.getString("myList", "");
+            arrayStrings = getList.split("/");
+            for (int i = 0; i < arrayStrings.length; i++){
+                nomdesc = arrayStrings[i].split("-");
+                this.elements.add(new Assignatura(nomdesc[0], nomdesc[1], R.mipmap.ic_launcher));
+            }
         }
     }
 

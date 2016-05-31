@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,8 +44,7 @@ public class NexamActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nexam);
-        resId = R.string.llistatexamens;
-        inflate = true;
+        resId = R.string.nouexam;
 
         carrera = (Spinner) findViewById(R.id.carrera);
         assignatura = (Spinner) findViewById(R.id.assignspin);
@@ -115,8 +115,10 @@ public class NexamActivity extends BaseActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isValidDate(data.getText().toString())){
-
+                if(!isValidDate(data.getText().toString())){
+                    Toast.makeText(getApplicationContext(), R.string.errordata, Toast.LENGTH_SHORT).show();
+                } else if (!isValidHour(hora.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), R.string.errorhora, Toast.LENGTH_SHORT).show();
                 } else {
                     sp = getSharedPreferences("ExamList", MODE_PRIVATE);
                     spe = sp.edit();
@@ -150,7 +152,9 @@ public class NexamActivity extends BaseActivity {
             return new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    data.setText(new StringBuilder().append(dayOfMonth).append("/").append(monthOfYear).append("/").append(year));
+                    if(monthOfYear < 10) data.setText(new StringBuilder().append(dayOfMonth).append("/").append("0").append(monthOfYear).append("/").append(year));
+                    else if (dayOfMonth < 10) data.setText(new StringBuilder().append("0").append(dayOfMonth).append("/").append(monthOfYear).append("/").append(year));
+                    else data.setText(new StringBuilder().append(dayOfMonth).append("/").append(monthOfYear).append("/").append(year));
                 }
             }, year, month, day);
         }
@@ -163,5 +167,14 @@ public class NexamActivity extends BaseActivity {
             }, hour, minute, true);
         }
         return null;
+    }
+
+    public boolean isValidHour(String hora){
+        String[] a;
+        a = hora.split(":");
+        if (a.length != 2) return false;
+        if (Integer.valueOf(a[0]) >= 24) return false;
+        if (Integer.valueOf(a[1]) >= 60) return false;
+        return true;
     }
 }

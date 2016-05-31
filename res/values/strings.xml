@@ -46,6 +46,8 @@
     <string name="crear">Crear</string>
     <string name="volver">Volver</string>
     <string name="vassig">Ver asignatura</string>
+    <string name="errordata">La fecha introduida no es válida!</string>
+    <string name="errorhora">La hora introduida no es válida!</string>
 
 
     <string-array name="aula_array">

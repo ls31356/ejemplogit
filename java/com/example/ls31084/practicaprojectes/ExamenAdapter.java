@@ -65,13 +65,6 @@ public class ExamenAdapter extends ArrayAdapter {
                     }
                 }
             }
-            for (int i = 1; i < elements.size(); i++) {
-                for (int j = i; j > 0; j--) {
-                    if (esMesGran(j - 1, j, elements)) {
-                        swap(j - 1, j, elements);
-                    }
-                }
-            }
             n = elements.size();
             for (int m = n; m >= 0; m--) {
                 for (int i = 0; i < n - 1; i++) {
@@ -148,7 +141,7 @@ public class ExamenAdapter extends ArrayAdapter {
         return row;
     }
 
-    public boolean esMesGran (int i, int k, ArrayList<Examen> elements){
+    public static boolean esMesGran (int i, int k, ArrayList<Examen> elements){
         String[] array1 = elements.get(i).getData().split("/");
         String[] array2 = elements.get(k).getData().split("/");
         String[] array3 = elements.get(i).getHora().split(":");

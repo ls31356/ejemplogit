@@ -73,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public static boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(inDate.trim());

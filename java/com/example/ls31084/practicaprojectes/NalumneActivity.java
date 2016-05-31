@@ -20,11 +20,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,11 +46,7 @@ public class NalumneActivity extends BaseActivity {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private Bitmap yourSelectedImage;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-   private GoogleApiClient client;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
